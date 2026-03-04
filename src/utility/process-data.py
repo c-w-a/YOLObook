@@ -3,7 +3,7 @@
 
 import concurrent.futures
 import pandas as pd
-from pytube import YouTube
+import yt_dlp
 import random
 import shutil
 import subprocess
@@ -24,23 +24,21 @@ val_ratio = 0.16                # specify val ratio
 test_ratio = 0.16               # specify test ratio *SET TO ZERO IF TEST DATA NOT DESIRED*
 shuffle = True                  # shuffle filtered videos before downloading
                             
-#thoughts:                            
-# ..i should write a function to automate class remapping.. 
-# ..i should also automate the creation of the .yaml file..
-# ..more error handling..
-# ..add option to manually inspect one bounding box overlay after data processing..
-# also a check for duplicate dataset name.. overwrite or nah
-
 # functions:
 # function used to download video (called my multiple threads)
 def download_video(video_id):
     try:
         url = f"https://www.youtube.com/watch?v={video_id}"
-        yt = YouTube(url)
-        stream = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
-        stream.download(video_download_directory)
-        name_to_id[yt.title] = video_id
-        return [f"       success! ID {video_id} TITLE {yt.title}", True]
+        ydl_opts = {
+            'format': 'best[ext=mp4]',
+            'outtmpl': os.path.join(video_download_directory, '%(title)s.%(ext)s'),
+            'quiet': True,
+        }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=True)
+            title = info.get('title', video_id)
+            name_to_id[title] = video_id
+            return [f"       success! ID {video_id} TITLE {title}", True]
     except Exception as e:
         return [f"         FAILED ID {video_id} ERROR {str(e)}", False]
 
@@ -181,7 +179,7 @@ unique_video_ids = filtered_df.iloc[:,0].unique()
 if shuffle:
     random.shuffle(unique_video_ids)
 
-os.makedirs('../../data/temp/')
+os.makedirs('../../data/temp/', exist_ok=True)
 video_download_directory = '../../data/temp' 
 
 print('\n -- downloading videos (come back in some hours)..\n')
@@ -244,7 +242,7 @@ for video_name in filtered_df.iloc[:,10].unique():
         label_filename = image_filename + '.txt'
         label_output_path = os.path.join(label_directory, label_filename)
 
-        with open(label_output_path, 'w') as file:
+        with open(label_output_path, 'a') as file:
             file.write(label)
 
 print('\n -- deleting images with object present, but without corresponding label..')

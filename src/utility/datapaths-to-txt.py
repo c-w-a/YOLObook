@@ -17,8 +17,8 @@ def create_image_paths_file(data, filename):
 print('\n\n -- FRAME PATHS TO .TXT : STARTING..')
 
 print('\n -- writing paths to file..')
-create_image_paths_file('../../data/processed/' + dataset + '/data/train/', 'train.txt')
-create_image_paths_file('../../data/processed/' + dataset + '/data/val/', 'val.txt')
-create_image_paths_file('../../data/processed/' + dataset + '/data/test/', 'test.txt')
+create_image_paths_file('../../data/processed/' + dataset + '/data/images/train/', 'train.txt')
+create_image_paths_file('../../data/processed/' + dataset + '/data/images/val/', 'val.txt')
+create_image_paths_file('../../data/processed/' + dataset + '/data/images/test/', 'test.txt')
 
 print('\n -- FRAME PATHS TO .TXT : DONE ! :)')

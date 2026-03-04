@@ -8,6 +8,11 @@ experiments/
 data/
 !yolov5/data
 
+# generated runtime files
+process_data_notebook.py
+yolov5/dataset-*.yaml
+!yolov5/data/*.yaml
+
 # mac thing
 .DS_Store
 
