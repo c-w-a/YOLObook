@@ -20,7 +20,7 @@ the notebook (`YoloBook.ipynb`) walks through 9 steps:
 8. **inspect** -> visual QA with random bounding box overlays
 9. **test** -> run inference on your own images or video
 
-### data pipeline:
+### data pipeline
 
 the core processing file (`src/utility/process-data.py`) converts raw YouTube Bounding Box CSV annotations into a training-ready dataset:
 
