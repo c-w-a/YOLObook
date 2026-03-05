@@ -24,8 +24,7 @@ the notebook (`YoloBook.ipynb`) walks through 9 steps:
 
 the core processing file (`src/utility/process-data.py`) converts raw YouTube Bounding Box CSV annotations into a training-ready dataset:
 
-YouTube-BB CSVs → filter by selected classes → download videos (yt-dlp, 7 threads) → extract frames at annotated timestamps (ffmpeg, 10 threads) → 
-→ generate YOLO-format labels → remap class IDs to zero-indexed → split into train/val/test → cleanup
+YouTube-BB CSVs → filter by selected classes → download videos (yt-dlp, 7 threads) → extract frames at annotated timestamps (ffmpeg, 10 threads) → generate YOLO-format labels → remap class IDs to zero-indexed → split into train/val/test → cleanup
 
 each step runs with multithreaded workers where possible!
 
