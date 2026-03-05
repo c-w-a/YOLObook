@@ -6,7 +6,7 @@ pick object classes from a checkbox UI, run the cells, and get a trained model; 
 
 ![linkedin-version(1)](https://github.com/c-w-a/YOLOv5-DeepLearning-Notebook/assets/108597555/0874883d-046b-489e-9ede-a67f55448546)
 
-## how it works:
+## how it works
 
 the notebook (`YoloBook.ipynb`) walks through 9 steps:
 
@@ -35,7 +35,7 @@ each step runs with multithreaded workers where possible!
 
 ## setup
 
-### Google Colab
+### Google Colab (most simple)
 
 upload the repo to Google Drive, open `YoloBook.ipynb` in Colab, and run it; dependencies are installed automatically and data is stored on your Google Drive
 
